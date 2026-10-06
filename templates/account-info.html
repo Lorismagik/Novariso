@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Account | Novariso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- BOOTSTRAP 4 -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg?semt=ais_hybrid&w=740&q=80);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .custom-a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        .custom-a:hover {
+            color: black;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark fixed-top shadow-lg">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a>
+                    <img src="{{current_user.logo}}"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="text-center flex-grow-1">
+            <span class="navbar-brand mx-auto text-white font-weight-bold">
+                Account Personale
+            </span>
+        </div>
+
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a href="/">
+                    <img src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
+
+<div class="container-fluid pt-5 mt-4">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-12 col-md-3 col-lg-2 mb-3">
+            <div class="card glass" style="background-color: rgba(89, 86, 86, 0.5);">
+                <div class="card-body">
+                    <a href="/security" class="custom-a d-block mb-2">Privacy e Sicurezza</a><hr>
+                    <a href="/danger" class="custom-a d-block mb-2">Delete Account</a><hr>
+                    <a href="/logout" class="custom-a d-block mb-2">Logout</a><hr>
+                    <a href="/termini_di_servizio" class="custom-a d-block mb-2">Termini di Servizio</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENUTO PRINCIPALE -->
+        <div class="col-12 col-md-9 col-lg-10">
+            <div class="card glass" style="background-color: rgba(89, 86, 86, 0.5);">
+                <div class="card-body">
+
+                    <h4 class="text-white text-center">Info su di me</h4>
+                    <hr class="w-50 mx-auto">
+
+                    <div class="d-flex justify-content-center">
+                        <div class="card w-100 w-md-75 w-lg-50">
+                            <div class="card-body">
+
+                                <p class="font-weight-bold">USERNAME</p>
+                                <div class="d-flex align-items-center">
+                                    <p class="mb-0">{{current_user.username}}</p>
+                                    <button class="btn btn-link ml-2"
+                                            data-toggle="modal"
+                                            data-target="#changeUsernameModal">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <hr>
+
+                                <p class="font-weight-bold">E-MAIL</p>
+                                <div class="d-flex align-items-center">
+                                    <p class="mb-0">{{current_user.email}}</p>
+                                    <button class="btn btn-link ml-2"
+                                            data-toggle="modal"
+                                            data-target="#changeEmailModal">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <hr>
+
+                                <p class="font-weight-bold">ID</p>
+                                <p>{{current_user.id}}</p>
+
+                                <hr>
+
+                                <p class="text-danger">
+                                    Attenzione:<br>
+                                    l'ID è un dato univoco, non condividerlo con nessuno.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- MODAL CAMBIO USERNAME -->
+<div class="modal fade" id="changeUsernameModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    Modifica Username
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="changeUsername">
+                    <div class="form-group">
+                        <label>Password attuale</label>
+                        <input type="password" id="currentPassword" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nuovo username</label>
+                        <input type="text" id="newUsername" class="form-control">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-dismiss="modal">Annulla</button>
+                <button id="submitChangeUsername" class="btn btn-primary">Salva</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CAMBIO EMAIL -->
+<div class="modal fade" id="changeEmailModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
+
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    Modifica Email
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="changeEmail">
+                    <div class="form-group">
+                        <label>Password attuale</label>
+                        <input type="password" id="currentPassword1" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nuova email</label>
+                        <input type="email" id="newEmail" class="form-control">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-dismiss="modal">Annulla</button>
+                <button id="submitChangeEmail" class="btn btn-success">Salva</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/scripts/JS/blockinspect.js"></script>
+
+<script>
+$('#submitChangeUsername').on('click', function () {
+
+    console.log("CLICK username");
+    $.ajax({
+        url: '/account/changeUsername',
+        type: 'POST',
+        data: {
+            currentPassword: $('#currentPassword').val(),
+            newUsername: $('#newUsername').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.result === "error") {
+                alert(data.error_text);
+            } else {
+                alert("Username aggiornato!");
+                location.reload();
+            }
+        },
+        error: function (err) {
+            console.error("AJAX ERROR", err);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

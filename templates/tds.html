@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Termini di servizio | Account Personale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg?semt=ais_hybrid&w=740&q=80);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .custom-a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        .custom-a:hover {
+            color: black;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark fixed-top shadow-lg">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a>
+                    <img src="{{current_user.logo}}"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="text-center flex-grow-1">
+            <span class="navbar-brand mx-auto text-white font-weight-bold">
+                Account Personale
+            </span>
+        </div>
+
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a href="/">
+                    <img src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
+
+<!-- CONTENUTO -->
+<div class="container-fluid pt-5 mt-4">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-12 col-md-3 col-lg-2 mb-3">
+            <div class="card glass" style="background-color: rgba(255, 255, 255, 0.5);">
+                <div class="card-body" style="background-color: rgba(89, 86, 86, 0.5);">
+                    <a href="/account" class="custom-a d-block mb-2">Su di me</a><hr>
+                    <a href="/security" class="custom-a d-block mb-2">Privacy e Sicurezza</a><hr>
+                    <a href="/danger" class="custom-a d-block mb-2">Delete Account</a><hr>
+                    <a href="/logout" class="custom-a d-block mb-2">Logout</a><hr>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENUTO PRINCIPALE -->
+        <div class="col-12 col-md-9 col-lg-10">
+            <div class="card glass">
+                <div class="card-body" style="background-color: rgba(89, 86, 86, 0.5);">
+
+                    <h4 class="text-white text-center">Termini di servizio</h4>
+                    <hr class="w-50 mx-auto">
+
+                    <div class="d-flex justify-content-center">
+                        <div class="card w-100 w-lg-75">
+                            <div class="card-body">
+
+                                <h3 class="text-center mb-4">Termini e Condizioni</h3>
+
+                                <p class="text-center">
+                                    Benvenuto nelle condizioni e termini di servizio di Novariso!
+                                </p>
+
+                                <h5>Contenuti</h5>
+                                <p>
+                                    Il nostro sito e i suoi contenuti sono forniti esclusivamente per uso personale e non commerciale.
+                                </p>
+
+                                <h5>Sicurezza</h5>
+                                <p>
+                                    I nostri servizi NON sono totalmente protetti. I dati vengono salvati con discreti livelli di sicurezza.
+                                </p>
+
+                                <h5>Link a Terze Parti</h5>
+                                <p>
+                                    Non siamo responsabili per contenuti o politiche di siti di terze parti.
+                                </p>
+
+                                <h5>Modifiche ai Termini</h5>
+                                <p>
+                                    Ci riserviamo il diritto di modificare i Termini in qualsiasi momento.
+                                </p>
+
+                                <h5>Contattaci</h5>
+                                <strong>Email:</strong><p class="text-primary">novariso@lorismagik.net</p>
+                                <strong>TikTok:</strong><p class="text-primary">@novariso</p>
+                                <strong>Instagram:</strong><p class="text-primary">@novariso.spa</p>
+
+                                <p class="text-muted mt-4">
+                                    Ultimo aggiornamento: 06/02/2026
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/scripts/JS/blockinspect.js"></script>
+
+</body>
+</html>

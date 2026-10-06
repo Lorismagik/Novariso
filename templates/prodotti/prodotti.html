@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Novariso Shop - Prodotti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg);
+            background-size: cover;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        /* CARD */
+        .product-card {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* IMMAGINE */
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.15);
+        }
+
+        /* TITOLO SOPRA */
+        .product-title {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 12px;
+            background: rgba(2, 255, 179, 0.85);
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* OVERLAY HOVER */
+        .product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        footer {
+            background-color: rgba(2, 255, 179, 0.325);
+        }
+    </style>
+
+		<!--NAVBAR BEGIN-->
+		<nav class="navbar navbar-expand-lg navbar-dark navbar-shadow shadow-lg" style="background-color: rgba(2, 255, 179, 0.325);">
+        <a class="navbar-brand">
+            <img class="rounded-circle shadow-4-strong" height="40" width="40" src="{{ url_for('serve_logo', filename='logo.jpeg') }}" />
+        </a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+
+                    <li class="nav-item active hover-custom-leo">
+                    <a class="nav-link" href="/prodotti" style="color: black;">I Nostri Prodotti</a>
+                    </li>
+
+					<li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/chi_siamo" style="color: black;">Chi Siamo</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/issues" style="color: black;">FAQ</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+                        <a class="nav-link" href="/olio" style="color: black;">Il Nostro Olio</a>
+                    </li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/carrello" style="color: black;">Carrello</a>
+					</li>
+				</ul>
+			<a class="navbar-brand" href="/">
+				<!--img src="hecker.png" width="30" height="30" alt=""!-->
+				<img class="rounded-circle shadow-4-strong" style="margin-left: 1640px;" height="40" width="40" src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg" />
+			</a>
+			</div>
+		</nav>
+</head>
+
+<body>
+
+<br><br>
+
+<h2 class="text-center font-weight-bold">I Nostri Prodotti</h2>
+
+<br><br>
+
+<div class="container mb-3 mt-4">
+    <div class="row">
+
+        <!-- PRODOTTO 1 -->
+        <div class="col-md-4 mb-4">
+            <a href="/prodotti/barrette" class="text-decoration-none">
+                <div class="product-card">
+                    <div class="product-title">Barrette</div>
+                    <img src="{{ url_for('serve_images', filename='barretta.jpeg') }}">
+                    <div class="product-overlay">
+                        Scopri il prodotto →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- PRODOTTO 2 -->
+        <div class="col-md-4 mb-4">
+            <a href="/prodotti/dolci" class="text-decoration-none">
+                <div class="product-card">
+                    <div class="product-title">Dolci</div>
+                    <img src="{{ url_for('serve_images', filename='crema.jpeg') }}">
+                    <div class="product-overlay">
+                        Scopri il prodotto →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- PRODOTTO 3 -->
+        <div class="col-md-4 mb-4">
+            <a href="/prodotti/gallette" class="text-decoration-none">
+                <div class="product-card">
+                    <div class="product-title">Gallette</div>
+                    <img src="{{ url_for('serve_images', filename='cracker.jpeg') }}">
+                    <div class="product-overlay">
+                        Scopri il prodotto →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- PRODOTTO 4 -->
+        <div class="col-md-4 mb-4">
+            <a href="/prodotti/omogenizzati" class="text-decoration-none">
+                <div class="product-card">
+                    <div class="product-title">Omogenizzati</div>
+                    <img src="{{ url_for('serve_images', filename='omogenizzato.jpeg') }}">
+                    <div class="product-overlay">
+                        Scopri il prodotto →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<br><br>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start shadow-lg mt-5" style="background-color: rgba(2, 255, 179, 0.325);">
+        <div class="foot" style="color: black;">
+            <a href="/termini_di_servizio" class="custom" id="copyright" style="color: black;">
+                © 2026 Copyright
+            </a> <br>
+            Novariso Shop
+        </div>
+    </footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/scripts/JS/blockinspect.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("loaded");
+    });
+</script>
+
+</body>
+</html>

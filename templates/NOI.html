@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Su di noi</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg?semt=ais_hybrid&w=740&q=80);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Contenitore centrale */
+        .center-container {
+            display: flex;
+            margin-top: 15px;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Card centrale */
+        .central-card {
+            background-color: rgba(2, 255, 179, 0.325);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            color: white;
+        }
+
+        /* Video responsive */
+        .video-container video {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        h4 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border-top: 2px solid white;
+        }
+    </style>
+    		<nav class="navbar navbar-expand-lg navbar-dark navbar-shadow shadow-lg" style="background-color: rgba(2, 255, 179, 0.325);">
+            <a class="navbar-brand">
+                <img class="rounded-circle shadow-4-strong" height="40" width="40" src="{{ url_for('serve_logo', filename='logo.jpeg') }}" />
+            </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/prodotti" style="color: black;">I Nostri Prodotti</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/issues" style="color: black;">FAQ</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+                        <a class="nav-link" href="/olio" style="color: black;">Il Nostro Olio</a>
+                    </li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/carrello" style="color: black;">Carrello</a>
+					</li>
+				</ul>
+			</div>
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a href="/">
+                    <img src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+		</nav>
+</head>
+<body>
+
+<div class="center-container">
+    <div class="central-card text-center">
+
+        <h4 style="color: black;">Chi siamo noi?</h4>
+        <hr>
+
+        <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; box-shadow: 0 2px 8px rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px;">
+            <iframe 
+                loading="lazy"
+                src="https://www.canva.com/design/DAHAiEqz5ps/K52ZEM0vsPCht63d8iuf8g/view?embed"
+                style="position:absolute; width:100%; height:100%; top:0; left:0; border:none;">
+            </iframe>
+        </div>
+<a style="color: black;"> <p>Siamo <b>Novariso</b>, un’azienda italiana specializzata nella produzione di alimenti a base di riso di alta qualità, pensati per nutrire il benessere quotidiano delle persone. Nasciamo dalla passione per la tradizione agricola del nostro territorio, unita all’innovazione sostenibile e a una visione etica dell’alimentazione. Ogni nostro prodotto riflette il nostro impegno verso la salute dei consumatori, la tutela dell’ambiente e il sostegno alle comunità locali.</p> <br> <h4>Mission</h4> <p>La nostra mission è offrire prodotti alimentari a base di riso sani, gustosi e sostenibili che promuovono uno stile di vita equilibrato. Utilizziamo ingredienti selezionati, processi produttivi a basso impatto ambientale e criteri ESG rigorosi per garantire qualità, trasparenza e responsabilità in ogni fase della filiera. Ci impegniamo a valorizzare il territorio e i suoi produttori, contribuendo a un sistema alimentare più giusto e rispettoso delle persone e del pianeta.</p> <br> <h4>Vision</h4> <p>La nostra vision è diventare un punto di riferimento nel settore alimentare per chi cerca nutrizione consapevole, sostenibilità ambientale e un impatto positivo sulla comunità. Vogliamo creare un futuro in cui la scelta dei nostri prodotti significhi non solo benessere per chi li consuma, ma anche un contributo concreto alla salvaguardia dell’ambiente, alla promozione di pratiche agricole rigenerative e allo sviluppo sostenibile delle comunità locali.</p> <br> <h4>Valori Fondamentali</h4> <p><b>Salute e qualità</b>: nutrizione responsabile e ingredienti eccellenti.</p> <p><b>Sostenibilità ambientale</b>: riduzione delle emissioni, uso efficiente delle risorse, packaging eco-friendly.</p> <p><b>Responsabilità sociale</b>: supporto alle comunità agricole, trasparenza e rispetto dei diritti umani.</p> <p><b>Innovazione etica</b>: ricerca continua per prodotti migliori con minore impatto.</p> </a> </div> </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/scripts/JS/blockinspect.js"></script>
+</body>
+</html>

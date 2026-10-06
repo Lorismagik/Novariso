@@ -1,0 +1,47 @@
+<style>
+    @keyframes rgb {
+        0% { background-color: red; }
+        20% { background-color: blue; }
+        40% { background-color: purple; }
+        60% { background-color: green; }
+        80% { background-color: red; }
+        100% { background-color: yellow; }
+    }
+
+    @keyframes zoom {
+        0% { font-size: 10px; }
+        20% { font-size: 30px; }
+        40% { font-size: 50px; }
+        60% { font-size: 50px; }
+        80% { font-size: 30%; }
+        100% { font-size: 10%; }
+
+    }
+
+    @keyframes scappare {
+        0% { transform: translateX(0); } /* Posizione iniziale */
+        50% { transform: translateX(10000px); } /* Posizione di mezzo */
+        100% { transform: translateX(0); } /* Posizione finale (tornando alla posizione iniziale) */       
+    }
+
+    body {
+        animation: rgb 00000.1s infinite;
+    }
+
+    h1 {
+        animation: zoom 1s infinite;
+    }
+    
+    .botonemagico {
+        animation: scappare 1s infinite;
+    }
+</style>
+
+<html>
+    <body>
+        <h1 style="display: flex; align-items: center; justify-content: center;">RGB PAGE THIS IS AN (BRUTTO) EASTER EGG BY LEOTECNO</h1>
+        <a href="/"><button class="botonemagico">AHAH PREMIMI PER TORNARE ALLA HOMEPAGE</button></a>
+
+	<script src="/static/scripts/JS/blockinspect.js"></script>
+    </body>
+</html>

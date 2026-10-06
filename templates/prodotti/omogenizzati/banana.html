@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Prodotti | Novariso Shop</title>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg);
+            background-size: cover;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .product-card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .btn-cart {
+            background-color: #2effb3;
+            border: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .btn-cart:hover {
+            background-color: #1edfa0;
+        }
+
+        .carousel-img {
+        height: 400px;
+        object-fit: cover;
+        }
+
+    </style>
+		<!--NAVBAR BEGIN-->
+		<nav class="navbar navbar-expand-lg navbar-dark navbar-shadow shadow-lg" style="background-color: rgba(2, 255, 179, 0.325);">
+        <a class="navbar-brand">
+            <img class="rounded-circle shadow-4-strong" height="40" width="40" src="{{ url_for('serve_logo', filename='logo.jpeg') }}" />
+        </a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/prodotti" style="color: black;">I Nostri Prodotti</a>
+					</li>
+
+					<li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/chi_siamo" style="color: black;">Chi Siamo</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/issues" style="color: black;">FAQ</a>
+					</li>
+
+					<li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/carrello" style="color: black;">Carrello</a>
+					</li>
+				</ul>
+			<a class="navbar-brand" href="/">
+				<!--img src="hecker.png" width="30" height="30" alt=""!-->
+				<img class="rounded-circle shadow-4-strong" style="margin-left: 1540px;" height="40" width="40" src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg" />
+
+
+			</a>
+			</div>
+		</nav>
+</head>
+
+<body>
+
+<!-- TITOLO -->
+<div class="container mt-5">
+    <h2 class="text-center text-black mb-4">Omogenizzati alla banana</h2>
+
+    <div class="card product-card shadow-lg p-4">
+        <div class="row">
+
+            <!-- GALLERIA IMMAGINI -->
+            <div class="col-md-5">
+                <div id="productCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="{{url_for('serve_images', filename='banana.jpeg') }}" class="d-block w-100 rounded carousel-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO PRODOTTO -->
+            <div class="col-md-6">
+                <h3 class="mt-3">Omogenizzati alla banana</h3>
+                <p>
+                Una prodotto nutriente, naturale e ad alto apporto calorico.
+                Perfetto per bambini in svezzamento e crescita e per chiunque cerchi un cibo sano e gustoso.
+                </p>
+
+                <p class="price">€2.99</p>
+
+                <button class="btn btn-cart btn-lg btn-block"
+                        onclick="aggiungiAlCarrello()">
+                        Aggiungi al carrello
+                </button>
+            </div>
+        </div>
+
+        <!-- VALORI NUTRIZIONALI -->
+        <hr class="my-4">
+
+        <h4 class="text-center mb-3">Valori Nutrizionali (per 3x100g)</h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Valore</th>
+                        <th>Quantità</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Energia</td>
+                        <td>270 kcal</td>
+                    </tr>
+                    <tr>
+                        <td>Grassi</td>
+                        <td>1,5 g</td>
+                    </tr>
+                    <tr>
+                        <td>di cui saturi</td>
+                        <td>0,3 g</td>
+                    </tr>
+                    <tr>
+                        <td>Carboidrati</td>
+                        <td>60 g</td>
+                    </tr>
+                    <tr>
+                        <td>di cui zuccheri</td>
+                        <td>24 g</td>
+                    </tr>
+                    <tr>
+                        <td>Proteine</td>
+                        <td>4,5 g</td>
+                    </tr>
+                    <tr>
+                        <td>Sale</td>
+                        <td>0 g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/scripts/JS/blockinspect.js"></script>
+<script>
+function aggiungiAlCarrello() {
+    const prodotto = {
+        id: 11,
+        nome: "Omogenizzati alla banana",
+        prezzo: 2.99,
+        quantita: 1
+    };
+
+    let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+
+    const esistente = carrello.find(p => p.id === prodotto.id);
+
+    if (esistente) {
+        esistente.quantita += 1;
+    } else {
+        carrello.push(prodotto);
+    }
+
+    localStorage.setItem("carrello", JSON.stringify(carrello));
+}
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("loaded");
+    });
+</script>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start shadow-lg mt-5" style="background-color: rgba(2, 255, 179, 0.325);">
+        <div class="foot" style="color: black;">
+            <a href="/termini_di_servizio" class="custom" id="copyright" style="color: black;">
+                © 2026 Copyright
+            </a> <br>
+            Novariso Shop
+        </div>
+    </footer>
+
+</body>
+</html>

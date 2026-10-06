@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Novariso | Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <section class="vh-100 bg-image" style="background-color: #36393F;">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Registrati</h2>
+
+                                <!-- FORM REGISTER -->
+                                <form id="registerForm">
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name="name" id="nome_utente"
+                                               class="form-control form-control-lg"
+                                               placeholder="Inserisci il tuo Username" required />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="email" name="email" id="email"
+                                               class="form-control form-control-lg"
+                                               placeholder="Inserisci la tua Email" required />
+                                    </div>
+
+                                    <!-- PASSWORD -->
+                                    <div class="form-outline mb-4">
+                                        <div class="input-group input-group-lg">
+                                            <input type="password" name="password" id="password"
+                                                   class="form-control" placeholder="Inserisci la Password" required />
+                                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password', this)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- CONFERMA PASSWORD -->
+                                    <div class="form-outline mb-4">
+                                        <div class="input-group input-group-lg">
+                                            <input type="password" name="passwordConfirm" id="passwordConfirm"
+                                                   class="form-control" placeholder="Conferma la Password" required />
+                                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('passwordConfirm', this)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                            Registrati
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <p class="text-center text-muted mt-5 mb-0">
+                                    Hai già un account?
+                                    <a href="/login" class="fw-bold text-body"><u>Accedi qui!</u></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Username già esistente Modal -->
+    <div class="modal fade" id="userExistsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Errore registrazione</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Questo username esiste già.</p>
+                    <p>Scegline un altro e riprova.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/scripts/JS/blockinspect.js"></script>
+
+    <!-- Toggle password -->
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
+
+    <!-- JS Fetch per submit e popup -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("registerForm");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+
+                try {
+                    const res = await fetch("/register", { method: "POST", body: formData });
+                    const data = await res.json();
+
+                    if (data.result === "error" && data.error_text === "Username già esistente") {
+                        const modalEl = document.getElementById("userExistsModal");
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+
+                        modalEl.addEventListener("hidden.bs.modal", () => {
+                            window.location.href = "/login";
+                        }, { once: true });
+
+                        return;
+                    }
+
+                    if (data.result === "error") {
+                        alert(data.error_text);
+                        return;
+                    }
+
+                    window.location.href = "/";
+                } catch (err) {
+                    console.error(err);
+                    alert("Errore nel server, riprova più tardi.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

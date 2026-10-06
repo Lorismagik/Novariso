@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Carrello - Novariso Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg?semt=ais_hybrid&w=740&q=80);
+            background-size: cover;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .card-custom {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 15px;
+        }
+
+        .hover-custom-leo {
+            transition: transform 0.3s;
+        }
+
+        .hover-custom-leo:hover {
+            transform: scale(1.05);
+        }
+
+        .foot {
+            background-color: rgba(255, 255, 255, 0.411);
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .custom {
+            text-decoration: none;
+            color: black;
+        }
+
+        .custom:hover {
+            color: rgb(97, 97, 97);
+            text-decoration: none;
+        }
+
+        .totale-prezzo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #0b6b3f; /* verde scuro */
+        border-top: 2px solid #0b6b3f;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg"
+     style="background-color: rgba(2, 255, 179, 0.325);">
+    <a class="navbar-brand">
+        <img class="rounded-circle" height="40" width="40"
+             src="{{ url_for('serve_logo', filename='logo.jpeg') }}">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item hover-custom-leo">
+                <a class="nav-link" href="/prodotti" style="color:black;">
+                    I Nostri Prodotti
+                </a>
+            </li>
+            <li class="nav-item hover-custom-leo">
+                <a class="nav-link" href="/chi_siamo" style="color:black;">
+                    Chi Siamo
+                </a>
+            </li>
+            <li class="nav-item hover-custom-leo">
+                <a class="nav-link" href="/issues" style="color:black;">
+                    FAQ
+                </a>
+            </li>
+            <li class="nav-item active hover-custom-leo">
+                <a class="nav-link" href="/olio" style="color: black;">Il Nostro Olio</a>
+            </li>
+        </ul>
+    </div>
+
+			<a class="navbar-brand" href="/">
+				<!--img src="hecker.png" width="30" height="30" alt=""!-->
+				<img class="rounded-circle shadow-4-strong" style="margin-left: 1540px;" height="40" width="40" src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg" />
+
+
+			</a>
+</nav>
+
+<br><br>
+
+<h2 class="text-center text-black">Il tuo Carrello</h2>
+
+<br>
+
+<div class="container">
+    <div class="card card-custom shadow-lg">
+        <div class="card-body">
+
+            <!-- LISTA CARRELLO -->
+            <div id="lista-carrello"></div>
+
+            <!-- TOTALE PREZZO -->
+            <div id="totale-prezzo" class="totale-prezzo text-right"></div>
+
+
+            <!-- PULSANTE CHECKOUT -->
+            <div class="text-center mt-4" id="checkout-btn" style="display: none;">
+                <a href="/checkout"
+                   class="btn btn-success btn-lg hover-custom-leo">
+                    Procedi al pagamento
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- FOOTER -->
+<footer class="text-center shadow-lg"
+        style="background-color: rgba(2, 255, 179, 0.325);">
+    <div class="foot">
+        <a href="/termini_di_servizio" class="custom">
+            © 2026 Copyright
+        </a>
+        <br>
+        Novariso Shop
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<script src="/static/scripts/JS/blockinspect.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.body.classList.add("loaded");
+
+    const carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+    const lista = document.getElementById("lista-carrello");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    const totalePrezzoDiv = document.getElementById("totale-prezzo");
+
+    lista.innerHTML = "";
+    totalePrezzoDiv.innerHTML = "";
+
+    if (carrello.length === 0) {
+        lista.innerHTML = `
+            <p class="text-center text-muted my-4">
+                Nessun prodotto nel carrello
+            </p>
+        `;
+        checkoutBtn.style.display = "none";
+        return;
+    }
+
+    // Calcolo totale
+    let totale = 0;
+    carrello.forEach(prodotto => {
+        totale += prodotto.prezzo * prodotto.quantita;
+    });
+
+    // Mostra totale con 2 decimali e simbolo €
+    totalePrezzoDiv.innerHTML = `Totale: €${totale.toFixed(2)}`;
+
+    checkoutBtn.style.display = "block";
+
+    // Aggiungi click al pulsante "Procedi al pagamento"
+    checkoutBtn.querySelector("a").addEventListener("click", function(event){
+        event.preventDefault(); // blocca navigazione
+        // svuota carrello
+        localStorage.setItem("carrello", JSON.stringify([]));
+        // mostra modal
+        $('#acquistoModal').modal('show');
+        // aggiorna lista e totale
+        lista.innerHTML = `<p class="text-center text-muted my-4">Nessun prodotto nel carrello</p>`;
+        totalePrezzoDiv.innerHTML = "";
+        checkoutBtn.style.display = "none";
+    });
+
+    carrello.forEach((prodotto, index) => {
+        lista.innerHTML += `
+            <div class="container p-3 bg-white rounded shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-center flex-fill">
+                        <h4>${prodotto.nome}</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <input type="number"
+                               class="form-control"
+                               min="1"
+                               value="${prodotto.quantita}"
+                               onchange="aggiornaQuantita(${index}, this.value)">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <button class="btn btn-outline-danger btn-sm"
+                                onclick="rimuoviProdotto(${index})">
+                            Rimuovi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+});
+
+    // Calcolo totale
+    let totale = 0;
+    carrello.forEach(prodotto => {
+        totale += prodotto.prezzo * prodotto.quantita;
+    });
+
+    // Mostra totale con 2 decimali e simbolo €
+    totalePrezzoDiv.innerHTML = `Totale: €${totale.toFixed(2)}`;
+
+    checkoutBtn.style.display = "block";
+
+    carrello.forEach((prodotto, index) => {
+        lista.innerHTML += `
+            <div class="container p-3 bg-white rounded shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-center flex-fill">
+                        <h4>${prodotto.nome}</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <input type="number"
+                               class="form-control"
+                               min="1"
+                               value="${prodotto.quantita}"
+                               onchange="aggiornaQuantita(${index}, this.value)">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <button class="btn btn-outline-danger btn-sm"
+                                onclick="rimuoviProdotto(${index})">
+                            Rimuovi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+function rimuoviProdotto(index) {
+    let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+    carrello.splice(index, 1);
+    localStorage.setItem("carrello", JSON.stringify(carrello));
+    location.reload();
+}
+
+function aggiornaQuantita(index, nuovaQuantita) {
+    let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+    carrello[index].quantita = parseInt(nuovaQuantita);
+    localStorage.setItem("carrello", JSON.stringify(carrello));
+    location.reload();
+}
+</script>
+<!-- MODAL ACQUISTO EFFETTUATO -->
+<div class="modal fade" id="acquistoModal" tabindex="-1" role="dialog" aria-labelledby="acquistoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="acquistoModalLabel">Acquisto Effettuato!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Grazie per il tuo acquisto!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

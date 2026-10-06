@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Nostra Formula Segreta</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            background-image: url(https://img.freepik.com/vettori-gratuito/moderno-disegno-di-sfondo-in-acquerello-verde-morbido_1055-20919.jpg?semt=ais_hybrid&w=740&q=80);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Contenitore centrale */
+        .center-container {
+            display: flex;
+            margin-top: 15px;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Card centrale */
+        .central-card {
+            background-color: rgba(2, 255, 179, 0.325);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            color: white;
+        }
+
+        /* Video responsive */
+        .video-container video {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        h4 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border-top: 2px solid rgb(0, 0, 0);
+        }
+    </style>
+    		<nav class="navbar navbar-expand-lg navbar-dark navbar-shadow shadow-lg" style="background-color: rgba(2, 255, 179, 0.325);">
+            <a class="navbar-brand">
+                <img class="rounded-circle shadow-4-strong" height="40" width="40" src="{{ url_for('serve_logo', filename='logo.jpeg') }}" />
+            </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/prodotti" style="color: black;">I Nostri Prodotti</a>
+					</li>
+
+                    <li class="nav-item hover-custom-leo">
+                    <a class="nav-link" href="/chi_siamo" style="color:black;">Chi Siamo</a>
+                    </li>
+                    
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/issues" style="color: black;">FAQ</a>
+					</li>
+
+                    <li class="nav-item active hover-custom-leo">
+						<a class="nav-link" href="/carrello" style="color: black;">Carrello</a>
+					</li>
+
+				</ul>
+			</div>
+        <div class="d-flex align-items-center">
+            {% if current_user.is_authenticated %}
+                <a href="/">
+                    <img src="https://img.freepik.com/vettori-premium/simbolo-della-home-page-dell-icona-per-il-sito-web_414847-462.jpg"
+                         class="rounded-circle"
+                         width="42"
+                         height="42">
+                </a>
+            {% endif %}
+        </div>
+		</nav>
+</head>
+<body>
+
+<div class="center-container">
+    <div class="central-card text-center">
+        <h2 style="color: black;">Il Nostro Olio</h2>
+        <hr>
+        <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; ">
+            <img src="https://cdn.discordapp.com/attachments/1268278364368539802/1491899196872069150/olio.png?ex=69d95ee6&is=69d80d66&hm=390c4de3d6bbda5777367fc1bc02dbf49772fd801c4f874f81c239d3fbbdda23&" alt="Il nostro olio" style="position: absolute; top: 0; left: 210px; width: 50%; height: 100%;">
+        </div>
+        <a style="color: black;">
+        <br>
+        <b>Il nostro olio rappresenta uno dei prodotti più distintivi della filosofia Novariso.</b>
+        <br>
+        Nasce all’interno dei nostri laboratori di ricerca e sviluppo, dove tradizione alimentare e innovazione si incontrano per creare un prodotto unico, pensato per offrire qualità, gusto e benessere.
+        Grazie a anni di ricerca e sperimentazione, i nostri specialisti hanno sviluppato un processo esclusivo che permette al nostro olio di mantenere proprietà nutrizionali equilibrate, un aroma delicato e una qualità costante nel tempo. Ogni fase della produzione viene seguita con grande attenzione, utilizzando tecnologie moderne che preservano la purezza degli ingredienti e garantiscono elevati standard di sicurezza alimentare.
+        La formula che caratterizza il nostro olio è uno dei segreti più preziosi dell’azienda. La composizione completa e il metodo di lavorazione sono custoditi con la massima riservatezza e conosciuti esclusivamente dai CEO di Novariso. Questa scelta permette di proteggere anni di ricerca e di mantenere l’unicità del prodotto.
+        Il nostro obiettivo è offrire un olio che possa accompagnare la cucina quotidiana con qualità, equilibrio e affidabilità, mantenendo sempre al centro i valori fondamentali dell’azienda: salute, innovazione e sostenibilità.</a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/scripts/JS/blockinspect.js"></script>
+</body>
+</html>
