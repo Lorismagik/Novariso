@@ -1,3 +1,6 @@
-Questo è un sito :)
+That's the Site Novariso!
 
-(di un'azienda famosa)
+(of a famous agency... ;)
+
+
+The firts version of the site was created in February 2026, that's the folder of the Site
